@@ -1,0 +1,5 @@
+#surefire
+#Wed Feb 20 15:47:23 IST 2013
+user.dir=D\:\\dev\\workspace\\Cloudify-iTests-sandbox\\remotestorage
+localRepository=D\:\\Documents and Settings\\elip\\.m2\\repository
+basedir=D\:\\dev\\workspace\\Cloudify-iTests-sandbox\\remotestorage
