@@ -15,27 +15,22 @@ public class HelloWorldRemoteStorageDriver implements StorageProvisioningDriver 
 		return HelloWorldRemoteStorageDriver.class.getName() + " Says Hello!";
 	}
 
-	public void setConfig(Cloud cloud, String computeTemplateName,
-			String storageTemplateName) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void setConfig(Cloud cloud, String computeTemplateName) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
 
-	public VolumeDetails createVolume(String location, long duration,
-			TimeUnit timeUnit) throws TimeoutException,
-			StorageProvisioningException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public VolumeDetails createVolume(String templateName, String location, long duration, TimeUnit timeUnit) throws TimeoutException, StorageProvisioningException {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
 
-	public void attachVolume(String volumeId, String ip, long duration,
-			TimeUnit timeUnit) throws TimeoutException,
-			StorageProvisioningException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void attachVolume(String volumeId, String device, String ip, long duration, TimeUnit timeUnit) throws TimeoutException, StorageProvisioningException {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
 
-	public void detachVolume(String volumeId, String ip, long duration,
+    public void detachVolume(String volumeId, String ip, long duration,
 			TimeUnit timeUnit) throws TimeoutException,
 			StorageProvisioningException {
 		// TODO Auto-generated method stub
