@@ -7,8 +7,6 @@ import org.cloudifysource.esc.driver.provisioning.byon.ByonProvisioningDriver;
 
 public class OnServiceUninstalledByonProvisioningDriver extends ByonProvisioningDriver {
 
-    private Logger logger = Logger.getLogger(this.getClass().getName()); 
-
     /**
      * @see org.cloudifysource.quality.iTests.test.esm.stateless.manual.memory.DedicatedStatelessManualPerZoneByonFailoverTest
      */   
