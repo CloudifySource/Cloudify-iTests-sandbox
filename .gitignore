@@ -11,4 +11,5 @@ src/main/resources/credentials/
 .classpath
 .project
 .idea/**
+ec2-location-aware-driver/ec2-location-aware-driver.iml
 *.iml
