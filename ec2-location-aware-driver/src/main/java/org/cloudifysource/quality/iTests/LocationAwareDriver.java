@@ -18,6 +18,7 @@ package org.cloudifysource.quality.iTests;
 
 import org.cloudifysource.esc.driver.provisioning.CloudProvisioningException;
 import org.cloudifysource.esc.driver.provisioning.MachineDetails;
+import org.cloudifysource.esc.driver.provisioning.ProvisioningContext;
 import org.cloudifysource.esc.driver.provisioning.jclouds.DefaultProvisioningDriver;
 
 import java.util.Arrays;
@@ -43,18 +44,22 @@ public abstract class LocationAwareDriver extends DefaultProvisioningDriver {
     }
 
     @Override
-    public MachineDetails startMachine(final String locationId, final long timeout, final TimeUnit unit)
+    public MachineDetails startMachine(final ProvisioningContext context, final long timeout, final TimeUnit unit)
             throws TimeoutException, CloudProvisioningException {
         MachineDetails machineDetails;
-        if (locationsToStartMachinesWith.contains(locationId)) {
-            logger.info((new StringBuilder()).append("recieved request from Cloudify Adapter to start machine in a specific cloud location = ").append(locationId).toString());
-            machineDetails = super.startMachine(locationId, timeout, unit);
+        if (locationsToStartMachinesWith.contains(context.getLocationId())) {
+            logger.info((new StringBuilder()).append("recieved request from Cloudify Adapter to start machine in a " +
+                    "specific cloud location = ").append(context.getLocationId()).toString());
+            machineDetails = super.startMachine(context, timeout, unit);
         } else {
-            logger.info((new StringBuilder()).append("recieved request from Cloudify Adapter to start machine with zone = ").append(locationId).append(". which is not a cloud specific location. continuing with round robin machine allocation").toString());
+            logger.info((new StringBuilder()).append("recieved request from Cloudify Adapter to start machine with " +
+                    "zone = ").append(context.getLocationId()).append(". which is not a cloud specific location. continuing with " +
+                    "" +
+                    "ound robin machine allocation").toString());
             String currentLocation = (String) locationsToStartMachinesWith.get(index.getAndIncrement()
                     % locationsToStartMachinesWith.size());
             logger.info((new StringBuilder()).append("starting machine with location : ").append(currentLocation).toString());
-            machineDetails = super.startMachine(currentLocation, timeout, unit);
+            machineDetails = super.startMachine(context, timeout, unit);
         }
         return machineDetails;
     }
