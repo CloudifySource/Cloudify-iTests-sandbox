@@ -12,7 +12,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <cloudify.home>${env.CLOUDIFY_HOME}</cloudify.home>
         <gsVersion>9.6.0-SNAPSHOT</gsVersion>
-        <cloudifyVersion>2.6.0-SNAPSHOT</cloudifyVersion>
+        <cloudifyVersion>2.7.0-SNAPSHOT</cloudifyVersion>
     </properties>
 
     <repositories>
@@ -34,12 +34,12 @@
         <dependency>
             <groupId>org.cloudifysource</groupId>
             <artifactId>esc</artifactId>
-            <version>2.6.0-SNAPSHOT</version>
+            <version>${cloudifyVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.cloudifysource</groupId>
             <artifactId>dsl</artifactId>
-            <version>2.6.0-SNAPSHOT</version>
+            <version>${cloudifyVersion}</version>
         </dependency>
     </dependencies>
 
@@ -98,7 +98,7 @@
                     <artifactId>esc</artifactId>
                     <version>${cloudifyVersion}</version>
                     <scope>system</scope>
-                    <systemPath>${cloudify.home}/lib/platform/esm/esc-${cloudifyVersion}.jar</systemPath>
+                    <systemPath>${cloudify.home}/lib/platform/esm/esc.jar</systemPath>
                 </dependency>
                 <dependency>
                     <groupId>org.cloudifysource</groupId>
