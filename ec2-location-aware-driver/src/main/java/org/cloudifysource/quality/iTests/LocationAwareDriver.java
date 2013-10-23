@@ -19,6 +19,7 @@ package org.cloudifysource.quality.iTests;
 import org.cloudifysource.esc.driver.provisioning.CloudProvisioningException;
 import org.cloudifysource.esc.driver.provisioning.MachineDetails;
 import org.cloudifysource.esc.driver.provisioning.ProvisioningContext;
+import org.cloudifysource.esc.driver.provisioning.ProvisioningContextImpl;
 import org.cloudifysource.esc.driver.provisioning.jclouds.DefaultProvisioningDriver;
 
 import java.util.Arrays;
@@ -48,18 +49,20 @@ public abstract class LocationAwareDriver extends DefaultProvisioningDriver {
             throws TimeoutException, CloudProvisioningException {
         MachineDetails machineDetails;
         if (locationsToStartMachinesWith.contains(context.getLocationId())) {
-            logger.info((new StringBuilder()).append("recieved request from Cloudify Adapter to start machine in a " +
-                    "specific cloud location = ").append(context.getLocationId()).toString());
+            logger.info(("Received request from Cloudify Adapter to start machine in a " +
+                    "specific cloud location = " + context.getLocationId()));
             machineDetails = super.startMachine(context, timeout, unit);
         } else {
-            logger.info((new StringBuilder()).append("recieved request from Cloudify Adapter to start machine with " +
-                    "zone = ").append(context.getLocationId()).append(". which is not a cloud specific location. continuing with " +
-                    "" +
-                    "ound robin machine allocation").toString());
-            String currentLocation = (String) locationsToStartMachinesWith.get(index.getAndIncrement()
+            logger.info("Received request from Cloudify Adapter to start machine with " +
+                    "zone = " + context.getLocationId() + ". which is not a cloud specific location. continuing round" +
+                    " robin machine allocation");
+            String currentLocation = locationsToStartMachinesWith.get(index.getAndIncrement()
                     % locationsToStartMachinesWith.size());
-            logger.info((new StringBuilder()).append("starting machine with location : ").append(currentLocation).toString());
-            machineDetails = super.startMachine(context, timeout, unit);
+            logger.info("Starting machine with location : " + currentLocation);
+            ProvisioningContextImpl newContext = new ProvisioningContextImpl();
+            newContext.setLocationId(currentLocation);
+            newContext.setCloudFile(context.getCloudFile());
+            machineDetails = super.startMachine(newContext, timeout, unit);
         }
         return machineDetails;
     }
