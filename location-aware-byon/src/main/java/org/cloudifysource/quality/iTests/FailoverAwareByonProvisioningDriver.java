@@ -30,10 +30,11 @@ public class FailoverAwareByonProvisioningDriver extends ByonProvisioningDriver 
     public void setConfig(final ComputeDriverConfiguration configuration) throws CloudProvisioningException {
         super.setConfig(configuration);
         final String serviceName = configuration.getServiceName();
-        enabled = !serviceName.equals(CloudifyConstants.MANAGEMENT_SPACE_NAME) &&
+        enabled = serviceName != null &&
+                  !serviceName.equals(CloudifyConstants.MANAGEMENT_SPACE_NAME) &&
                   !serviceName.equals(CloudifyConstants.MANAGEMENT_REST_SERVICE_NAME) &&
                   !serviceName.equals(CloudifyConstants.MANAGEMENT_WEBUI_SERVICE_NAME);
-        
+
         if (enabled) {
             try {
                 // service name is changes each test, but does not change when esm restarts. 
