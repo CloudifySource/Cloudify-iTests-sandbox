@@ -54,18 +54,20 @@ public class FailoverAwareByonProvisioningDriver extends ByonProvisioningDriver 
         }
     }
 
-	/**
-	 * This method is only called when pu has undeployed, or ESM does graceful shutdown.
-	 * It is not called when ESM is killed with "kill -9" which is a good thing since
-	 * the next ESM should be able to read this file.
-	 */
+    /**
+     * This method is only called when pu has undeployed, or ESM does graceful shutdown.
+     * It is not called when ESM is killed with "kill -9" which is a good thing since
+     * the next ESM should be able to read this file.
+     */
 	@Override
     public void close() {
-	    boolean deleted = file.delete();
-	    if (!deleted) {
-	        file.deleteOnExit();
-	    }
-	}
+        if (file != null) {
+            boolean deleted = file.delete();
+            if (!deleted) {
+                file.deleteOnExit();
+            }
+        }
+    }
 
     @Override
     public MachineDetails startMachine(final ProvisioningContext context, final long timeout, final TimeUnit timeUnit)
